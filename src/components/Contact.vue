@@ -1,13 +1,7 @@
-<script>
-export default {
-    name: "Contact"
-}
-</script>
-
 <template>
     <!-- Start Contact Form -->
     <div class="untree_co-section">
-        <div class="container">
+        <div class="container" id="contact_form">
 
             <div class="block">
                 <div class="row justify-content-center">
@@ -107,3 +101,21 @@ export default {
 
     <!-- End Contact Form -->
 </template>
+
+<script>
+$(document).ready(function() {
+  console.log(location);
+
+  if (location.pathname === '/contact') {
+    var scrollSpeed = 500; // Adjust this value to control scroll speed (milliseconds)
+
+    $('html, body').animate({
+      scrollTop: $('#contact_form').offset().top
+    }, scrollSpeed);
+  }
+});
+
+export default {
+    name: "Contact"
+}
+</script>
