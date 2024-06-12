@@ -60,19 +60,22 @@
                             </div>
                         </div>
 
-                        <form>
+                        <form @submit.prevent="submit">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="first_name">First name</label>
-                                        <input type="text" class="form-control" id="first_name" pattern="[A-Za-z]+" placeholder="Enter First name" required>
+                                        <input type="text" class="form-control" id="first_name" pattern="[A-Za-z]+"
+                                            placeholder="Enter First name" v-model="form.first_name" required>
                                         <span id="error" style="color: red; display: none;"></span>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="text-black" for="last_name">Last name</label>
-                                        <input type="text" class="form-control" id="last_name" placeholder="Enter Last name" pattern="[A-Za-z]+" required>
+                                        <input type="text" class="form-control" id="last_name"
+                                            placeholder="Enter Last name" pattern="[A-Za-z]+" v-model="form.last_name"
+                                            required>
                                         <span id="error" style="color: red; display: none;"></span>
 
                                     </div>
@@ -80,17 +83,20 @@
                             </div>
                             <div class="form-group">
                                 <label class="text-black" for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter Email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
+                                <input type="email" class="form-control" id="email" placeholder="Enter Email"
+                                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" v-model="form.email" required>
                                 <span id="error" style="color: red; display: none;"></span>
                             </div>
 
                             <div class="form-group mb-5">
                                 <label class="text-black" for="message">Message</label>
-                                <textarea name="" class="form-control" id="message" cols="30" rows="5" placeholder="Type your message here..." required></textarea>
+                                <textarea name="" class="form-control" id="message" cols="30" rows="5"
+                                    placeholder="Type your message here..." v-model="form.message" required></textarea>
                                 <span id="error" style="color: red; display: none;"></span>
                             </div>
 
-                            <button id="submit" type="submit" class="btn btn-primary-hover-outline">Send Message</button>
+                            <button id="submit" type="submit" class="btn btn-primary-hover-outline">Send
+                                Message</button>
                         </form>
 
                     </div>
@@ -107,14 +113,13 @@
     <!-- End Contact Form -->
 </template>
 <style>
-#submit:disabled{
+#submit:disabled {
     background-color: rgb(191, 191, 191);
     color: black;
 }
 </style>
 <script>
 $(document).ready(function () {
-    console.log(location);
 
     if (location.pathname === '/contact') {
         var scrollSpeed = 500; // Adjust this value to control scroll speed (milliseconds)
@@ -123,40 +128,59 @@ $(document).ready(function () {
             scrollTop: $('#contact_form').offset().top
         }, scrollSpeed);
     }
+
+    $('#first_name, #last_name, #email, #message').on('input', function (element) {
+        var input = element.target.value;
+        var specialCharRegex = /^[A-Za-z\s]+$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        var errorMessage = '';
+
+        if (input === '') {
+            errorMessage = (element.target.id.replace('_', ' ') + ' must not be empty').replace(/^./, str => str.toUpperCase());
+        } else if (element.target.id === 'email' && !emailRegex.test(input)) {
+            errorMessage = 'Email is not valid';
+        }
+        else if (element.target.id !== 'email' && !specialCharRegex.test(input) && element.target.id !== 'message') {
+            errorMessage = (element.target.id.replace('_', ' ') + ' can only have letters').replace(/^./, str => str.toUpperCase());
+        }
+
+        var errorElement = element.target.nextElementSibling;
+        if (errorMessage) {
+            errorElement.textContent = errorMessage;
+            errorElement.style.display = 'block';
+            document.getElementById('submit').disabled = true;
+        } else {
+            errorElement.style.display = 'none';
+            document.getElementById('submit').disabled = false;
+        }
+    });
 });
-
-$(document).ready(function() {
-  $('#first_name, #last_name, #email, #message').on('input', function(element) {
-    var input = element.target.value;
-    var specialCharRegex = /^[A-Za-z\s]+$/;
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    var errorMessage = '';
-
-    if (input === '') {
-      errorMessage = (element.target.id.replace('_', ' ') + ' must not be empty').replace(/^./, str => str.toUpperCase());
-    } else if (element.target.id === 'email' && !emailRegex.test(input)) {
-      errorMessage = 'Email is not valid';
-    }
-     else if (element.target.id !== 'email' && !specialCharRegex.test(input) && element.target.id !== 'message') {
-      errorMessage = (element.target.id.replace('_', ' ') + ' can only have letters').replace(/^./, str => str.toUpperCase());
-    } 
-
-    var errorElement = element.target.nextElementSibling;
-    if (errorMessage) {
-      errorElement.textContent = errorMessage;
-      errorElement.style.display = 'block';
-      document.getElementById('submit').disabled = true;
-    } else {
-      errorElement.style.display = 'none';
-      document.getElementById('submit').disabled = false;
-    }
-  });
-});
-
-
 
 export default {
-    name: "Contact"
+    name: "Contact",
+    data() {
+        return {
+            form: {
+                first_name: '',
+                last_name: '',
+                email: '',
+                message: '',
+            }
+        }
+    },
+    methods: {
+        async submit() {
+            let data = {
+                first_name: this.form.first_name,
+                last_name: this.form.last_name,
+                email: this.form.email,
+                message: this.form.message,
+            }
+            Api(base_url+'/api/contacts', data, 'POST').then(responseData => {
+                console.log('API response:', responseData); // Handle successful response
+            })
+        }
+    }
 }
 </script>
