@@ -110,6 +110,24 @@
 
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Notification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- End Contact Form -->
 </template>
 <style>
@@ -122,7 +140,7 @@
 $(document).ready(function () {
 
     if (location.pathname === '/contact') {
-        var scrollSpeed = 500; // Adjust this value to control scroll speed (milliseconds)
+        var scrollSpeed = 500;
 
         $('html, body').animate({
             scrollTop: $('#contact_form').offset().top
@@ -177,10 +195,28 @@ export default {
                 email: this.form.email,
                 message: this.form.message,
             }
-            Api(base_url+'/api/contacts', data, 'POST').then(responseData => {
-                console.log('API response:', responseData); // Handle successful response
+            Api(base_url + '/api/contacts', data, 'POST').then(responseData => {
+                console.log('API response:', responseData);
+                if (responseData.code === 200) {
+                    var modal = new bootstrap.Modal(document.getElementById('modal'));
+                    document.querySelector('.modal-body').textContent = responseData.message
+                    modal.show();
+
+                }
             })
+        },
+        clearForm(){
+            this.form.first_name = ''
+            this.form.last_name = ''
+            this.form.email = ''
+            this.form.message = ''
         }
+    },
+    mounted() {
+        let modal = document.getElementById('modal')
+        modal.addEventListener('hidden.bs.modal', ()=>{
+            this.clearForm()
+        })
     }
 }
 </script>
