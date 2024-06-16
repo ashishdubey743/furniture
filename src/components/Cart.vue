@@ -1,8 +1,4 @@
-<script>
-export default {
-    name: "Cart"
-}
-</script>
+
 
 <template>
     <div class="untree_co-section before-footer-section">
@@ -22,12 +18,12 @@ export default {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr  v-for="product in cartProducts">
                                     <td class="product-thumbnail">
-                                        <img src="../assets/images/product-1.png" alt="Image" class="img-fluid">
+                                        <img :src="`../../images/${product.image}`" alt="Image" class="img-fluid">
                                     </td>
                                     <td class="product-name">
-                                        <h2 class="h5 text-black">Product 1</h2>
+                                        <h2 class="h5 text-black">{{ product.name }}</h2>
                                     </td>
                                     <td>$49.00</td>
                                     <td>
@@ -51,34 +47,6 @@ export default {
                                     <td><a href="#" class="btn btn-black btn-sm">X</a></td>
                                 </tr>
 
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <img src="../assets/images/product-2.png" alt="Image" class="img-fluid">
-                                    </td>
-                                    <td class="product-name">
-                                        <h2 class="h5 text-black">Product 2</h2>
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td>
-                                        <div class="input-group mb-3 d-flex align-items-center quantity-container"
-                                            style="max-width: 120px;">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-black decrease"
-                                                    type="button">&minus;</button>
-                                            </div>
-                                            <input type="text" class="form-control text-center quantity-amount"
-                                                value="1" placeholder="" aria-label="Example text with button addon"
-                                                aria-describedby="button-addon1">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-black increase"
-                                                    type="button">&plus;</button>
-                                            </div>
-                                        </div>
-
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -146,3 +114,17 @@ export default {
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    name: "Cart",
+    data(){
+        return {
+            cartProducts : []
+        }
+    },
+    created(){
+        this.cartProducts = this.$store.state.cart
+    }
+}
+</script>

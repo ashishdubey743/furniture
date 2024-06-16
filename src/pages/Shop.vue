@@ -1,7 +1,7 @@
 <script setup>
 import Navigation from '../components/Navigation.vue'
-import Hero from '../components/Hero.vue'
 import Footer from '../components/Footer.vue'
+import { mapState } from 'vuex';
 
 </script>
 
@@ -19,118 +19,40 @@ import Footer from '../components/Footer.vue'
                 <div class="row">
 
                     <!-- Start Column 1 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-3.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Nordic Chair</h3>
-                            <strong class="product-price">$50.00</strong>
+                    <div class="col-12 col-md-4 col-lg-3 mb-5" v-for="product in products" :key="product.id">
+                        <a class="product-item">
+                            <img :src="`../../images/${product.image}`" class="img-fluid product-thumbnail">
+                            <h3 class="product-title">{{ product.name }}</h3>
+                            <strong class="product-price">{{ product.price }}</strong>
 
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
+                            <span class="icon-cross" @click="add_to_Cart(product)" data-bs-toggle="modal"
+                                data-bs-target="#modal">
+                                <img src="../assets/images/cross.svg" class="img-fluid cross">
+                                <img src="../assets/images/check.png" class="img-fluid check">
                             </span>
                         </a>
                     </div>
                     <!-- End Column 1 -->
+                </div>
+            </div>
+        </div>
 
-                    <!-- Start Column 2 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-1.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Nordic Chair</h3>
-                            <strong class="product-price">$50.00</strong>
-
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Notification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- End Column 2 -->
-
-                    <!-- Start Column 3 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-2.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Kruzo Aero Chair</h3>
-                            <strong class="product-price">$78.00</strong>
-
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
+                    <div class="modal-body">
+                        Product added to cart !
                     </div>
-                    <!-- End Column 3 -->
-
-                    <!-- Start Column 4 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-3.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Ergonomic Chair</h3>
-                            <strong class="product-price">$43.00</strong>
-
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
+                    <div class="modal-footer">
+                        <router-link class="btn btn-secondary" to="/cart"
+                            @click="removeModalBackdrop()">Cart</router-link>
+                        <router-link class="btn btn-primary" data-bs-dismiss="modal">Checkout</router-link>
                     </div>
-                    <!-- End Column 4 -->
-
-
-                    <!-- Start Column 1 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-3.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Nordic Chair</h3>
-                            <strong class="product-price">$50.00</strong>
-
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    <!-- End Column 1 -->
-
-                    <!-- Start Column 2 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-1.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Nordic Chair</h3>
-                            <strong class="product-price">$50.00</strong>
-
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    <!-- End Column 2 -->
-
-                    <!-- Start Column 3 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-2.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Kruzo Aero Chair</h3>
-                            <strong class="product-price">$78.00</strong>
-
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    <!-- End Column 3 -->
-
-                    <!-- Start Column 4 -->
-                    <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="#">
-                            <img src="../assets/images/product-3.png" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">Ergonomic Chair</h3>
-                            <strong class="product-price">$43.00</strong>
-
-                            <span class="icon-cross">
-                                <img src="../assets/images/cross.svg" class="img-fluid">
-                            </span>
-                        </a>
-                    </div>
-                    <!-- End Column 4 -->
-
                 </div>
             </div>
         </div>
@@ -138,3 +60,57 @@ import Footer from '../components/Footer.vue'
         <Footer />
     </body>
 </template>
+<style>
+.check {
+    display: none;
+}
+</style>
+<script>
+import { mapState, mapActions } from 'vuex';
+
+export default {
+    name: 'Shop',
+    data() {
+        return {
+            products: []
+        }
+    },
+    async created() {
+        try {
+            let response = await fetch('http://localhost:3000/products')
+            if (!response.ok) {
+                throw new Error("Failed to fetch products !")
+            }
+            const productList = await response.json()
+            this.products = productList
+        } catch (error) {
+            console.error('Error fetching products:', error.message)
+        }
+    },
+    methods: {
+        add_to_Cart(product) {
+            this.$store.commit('addToCart', product)
+            $('.cross').css('display', 'none');
+            $('.check').css('display', 'block');
+            setTimeout(() => {
+                $('.cross').css('display', 'block');
+                $('.check').css('display', 'none');
+            }, 500);
+        },
+        removeModalBackdrop() {
+            const modalBackdrop = document.querySelector('.modal-backdrop');
+            if (modalBackdrop) {
+                modalBackdrop.remove();
+            }
+            // Restore scroll
+            document.body.style.overflow = '';
+        }
+    },
+    computed: {
+        ...mapState([
+            'cart'
+        ])
+    }
+}
+
+</script>

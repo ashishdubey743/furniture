@@ -5,7 +5,6 @@ import Home from '../pages/Home.vue'
 import Shop from '../pages/Shop.vue'
 import About from '../pages/About.vue'
 import Services from '../pages/Services.vue'
-import Blog from '../pages/Blog.vue'
 import Contact from '../pages/Contact.vue'
 import Cart from '../pages/Cart.vue'
 import Checkout from '../pages/Checkout.vue'
@@ -33,11 +32,6 @@ const router = createRouter({
       path:'/services',
       name:'services',
       component: Services
-    },
-    {
-      path:'/blog',
-      name:'blog',
-      component: Blog
     },
     {
       path:'/contact',

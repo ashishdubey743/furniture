@@ -1,8 +1,4 @@
-<script>
-    export default {
-        name:"Product"
-    }
-</script>
+
 
 <template>
         <!-- Start Product Section -->
@@ -66,3 +62,16 @@
         </div>
         <!-- End Product Section -->
 </template>
+
+<script>
+    export default {
+        name:"Product",
+        data(){
+            return {
+                products : [
+                    
+                ]
+            }
+        }
+    }
+</script>

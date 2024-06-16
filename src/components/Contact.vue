@@ -22,7 +22,7 @@
                                         </svg>
                                     </div> <!-- /.icon -->
                                     <div class="service-contents">
-                                        <p>43 Raymouth Rd. Baltemoer, London 3910</p>
+                                        <p>1832 Sector 50, Faridabad, Haryana, India</p>
                                     </div> <!-- /.service-contents-->
                                 </div> <!-- /.service -->
                             </div>
@@ -38,7 +38,7 @@
                                         </svg>
                                     </div> <!-- /.icon -->
                                     <div class="service-contents">
-                                        <p>info@yourdomain.com</p>
+                                        <p>ashishdubey743@gmail.com</p>
                                     </div> <!-- /.service-contents-->
                                 </div> <!-- /.service -->
                             </div>
@@ -54,7 +54,7 @@
                                         </svg>
                                     </div> <!-- /.icon -->
                                     <div class="service-contents">
-                                        <p>+1 294 3925 3939</p>
+                                        <p>+91 8076277848</p>
                                     </div> <!-- /.service-contents-->
                                 </div> <!-- /.service -->
                             </div>

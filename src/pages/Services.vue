@@ -3,7 +3,6 @@ import Navigation from '../components/Navigation.vue'
 import Hero from '../components/Hero.vue'
 import WhyChoose from '../components/WhyChoose.vue'
 import Product from '../components/Product.vue'
-import Testimonial from '../components/Testimonial.vue'
 import Footer from '../components/Footer.vue'
 
 </script>
@@ -15,7 +14,6 @@ import Footer from '../components/Footer.vue'
         <Hero />
         <WhyChoose />
         <Product />
-        <Testimonial />
         <Footer />
     </body>
 </template>
