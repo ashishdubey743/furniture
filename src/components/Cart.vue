@@ -25,7 +25,7 @@
                                     <td class="product-name">
                                         <h2 class="h5 text-black">{{ product.name }}</h2>
                                     </td>
-                                    <td>$49.00</td>
+                                    <td>${{ product.price }}</td>
                                     <td>
                                         <div class="input-group mb-3 d-flex align-items-center quantity-container"
                                             style="max-width: 120px;">
@@ -34,17 +34,17 @@
                                                     type="button">&minus;</button>
                                             </div>
                                             <input type="text" class="form-control text-center quantity-amount"
-                                                value="1" placeholder="" aria-label="Example text with button addon"
-                                                aria-describedby="button-addon1">
+                                                v-model="product.quantity" placeholder="" aria-label="Example text with button addon"
+                                                aria-describedby="button-addon1" disabled>
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-black increase"
-                                                    type="button">&plus;</button>
+                                                    type="button" @click="increase_quantity(product.id)">&plus;</button>
                                             </div>
                                         </div>
 
                                     </td>
-                                    <td>$49.00</td>
-                                    <td><a href="#" class="btn btn-black btn-sm">X</a></td>
+                                    <td>${{ product.quantity * product.price }}</td>
+                                    <td><a @click="delete_from_cart(product.id)" class="btn btn-black btn-sm">X</a></td>
                                 </tr>
 
                             </tbody>
@@ -55,26 +55,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="row mb-5">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <button class="btn btn-black btn-sm btn-block">Update Cart</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="text-black h4" for="coupon">Coupon</label>
-                            <p>Enter your coupon code if you have one.</p>
-                        </div>
-                        <div class="col-md-8 mb-3 mb-md-0">
-                            <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-black">Apply Coupon</button>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="col-md-6 pl-5">
                     <div class="row justify-content-end">
@@ -83,28 +64,20 @@
                                 <div class="col-md-12 text-right border-bottom mb-5">
                                     <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <span class="text-black">Subtotal</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
-                                </div>
-                            </div>
+                            </div>  
                             <div class="row mb-5">
                                 <div class="col-md-6">
                                     <span class="text-black">Total</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
+                                    <strong class="text-black">${{ cartTotal }}</strong>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-black btn-lg py-3 btn-block"
-                                        onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                                    <router-link class="btn btn-black btn-lg py-3 btn-block"
+                                        to="/checkout">Proceed To Checkout</router-link>
                                 </div>
                             </div>
                         </div>
@@ -116,15 +89,30 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
     name: "Cart",
     data(){
         return {
-            cartProducts : []
+            // cartProducts : []
         }
     },
     created(){
-        this.cartProducts = this.$store.state.cart
+        // this.cartProducts = this.$store.state.cart
+    },
+    computed:{
+        ...mapGetters([
+            'cartTotal',
+            'cartProducts'
+        ])
+    },
+    methods:{
+        delete_from_cart(productId){
+            this.$store.commit('deleteFromCart', productId)
+        },
+        increase_quantity(productId){
+            this.$store.commit('increaseQuantity', productId)
+        }
     }
 }
 </script>

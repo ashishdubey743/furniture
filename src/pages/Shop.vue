@@ -51,7 +51,7 @@ import { mapState } from 'vuex';
                     <div class="modal-footer">
                         <router-link class="btn btn-secondary" to="/cart"
                             @click="removeModalBackdrop()">Cart</router-link>
-                        <router-link class="btn btn-primary" data-bs-dismiss="modal">Checkout</router-link>
+                        <router-link class="btn btn-primary" @click="removeModalBackdrop()" to="/checkout">Checkout</router-link>
                     </div>
                 </div>
             </div>
