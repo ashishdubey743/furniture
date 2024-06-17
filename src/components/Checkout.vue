@@ -7,79 +7,87 @@
                         <h2 class="h3 mb-3 text-black">Billing Details</h2>
                         <div class="p-3 p-lg-5 border bg-white">
                             <div class="form-group">
-                                <label for="c_country" class="text-black">Country <span
+                                <label for="country" class="text-black">Country <span
                                         class="text-danger">*</span></label>
-                                <select id="c_country" class="form-control" v-model="form.c_country" required>
-                                    <option value="1">Select a country</option>
-                                    <option value="2">bangladesh</option>
-                                    <option value="3">Algeria</option>
-                                    <option value="4">Afghanistan</option>
-                                    <option value="5">Ghana</option>
-                                    <option value="6">Albania</option>
-                                    <option value="7">Bahrain</option>
-                                    <option value="8">Colombia</option>
-                                    <option value="9">Dominican Republic</option>
+                                <select id="country" class="form-control" v-model="form.country" required>
+                                    <option value="" disabled>Select a country</option>
+                                    <option value="BD">Bangladesh</option>
+                                    <option value="DZ">Algeria</option>
+                                    <option value="AF">Afghanistan</option>
+                                    <option value="GH">Ghana</option>
+                                    <option value="AL">Albania</option>
+                                    <option value="BH">Bahrain</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="DO">Dominican Republic</option>
                                 </select>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label for="c_fname" class="text-black">First Name <span
+                                    <label for="first_name" class="text-black">First Name <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_fname" name="c_fname"
-                                        v-model="form.c_fname" required>
+                                    <input type="text" class="form-control" id="first_name" name="first_name"
+                                        v-model="form.first_name" required>
+                                    <span class="error" style="color: red; display: none;"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="c_lname" class="text-black">Last Name <span
+                                    <label for="last_name" class="text-black">Last Name <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_lname" name="c_lname"
-                                        v-model="form.c_lname" required>
+                                    <input type="text" class="form-control" id="last_name" name="last_name"
+                                        v-model="form.last_name" required>
+                                    <span class="error" style="color: red; display: none;"></span>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="c_companyname" class="text-black">Company Name </label>
-                                    <input type="text" class="form-control" id="c_companyname" name="c_companyname"
-                                        v-model="form.c_companyname" required>
+                                    <label for="company_name" class="text-black">Company Name </label>
+                                    <input type="text" class="form-control" id="company_name" name="company_name"
+                                        v-model="form.company_name">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="c_address" class="text-black">Address <span
+                                    <label for="address" class="text-black">Address <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_address" name="c_address"
-                                        v-model="form.c_address" placeholder="Street address" required>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        v-model="form.address" placeholder="Street address" required>
+                                    <span class="error" style="color: red; display: none;"></span>
+
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label for="c_state_country" class="text-black">State / Country <span
+                                    <label for="state" class="text-black">State / Country <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_state_country" name="c_state_country"
-                                        v-model="form.c_state_country" required>
+                                    <input type="text" class="form-control" id="state" name="state" v-model="form.state"
+                                        required>
+                                    <span class="error" style="color: red; display: none;"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="c_postal_zip" class="text-black">Posta / Zip <span
+                                    <label for="postal_code" class="text-black">Posta / Zip <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip"
-                                        v-model="form.c_postal_zip" required>
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code"
+                                        v-model="form.postal_code" required>
+                                    <span class="error" style="color: red; display: none;"></span>
                                 </div>
                             </div>
 
                             <div class="form-group row mb-5">
                                 <div class="col-md-6">
-                                    <label for="c_email_address" class="text-black">Email Address <span
+                                    <label for="email" class="text-black">Email Address <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_email_address" name="c_email_address"
-                                        v-model="form.c_email_address" required>
+                                    <input type="text" class="form-control" id="email" name="email" v-model="form.email"
+                                        required>
+                                    <span class="error" style="color: red; display: none;"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="c_phone" class="text-black">Phone <span
+                                    <label for="phone" class="text-black">Phone <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_phone" name="c_phone"
-                                        v-model="form.c_phone" placeholder="Phone Number" required>
+                                    <input type="text" class="form-control" id="phone" name="phone" v-model="form.phone"
+                                        placeholder="Phone Number" required>
+                                    <span class="error" style="color: red; display: none;"></span>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +166,8 @@
                                     <div class="form-group">
                                         <!-- <button class="btn btn-black btn-lg py-3 btn-block"
                                             onclick="window.location='thankyou.html'">Place Order</button> -->
-                                        <button class="btn btn-black btn-lg py-3 btn-block" type="submit">Place
+                                        <button class="btn btn-black btn-lg py-3 btn-block" id="submit"
+                                            type="submit">Place
                                             Order</button>
                                     </div>
 
@@ -182,15 +191,15 @@ export default {
     data() {
         return {
             form: {
-                c_country: "",
-                c_fname: "",
-                c_lname: "",
-                c_companyname: "",
-                c_address: "",
-                c_state_country: "",
-                c_postal_zip: "",
-                c_email_address: "",
-                c_phone: ""
+                country: "",
+                first_name: "",
+                last_name: "",
+                company_name: "",
+                address: "",
+                state: "",
+                postal_code: "",
+                email: "",
+                phone: ""
             }
         }
     },
@@ -203,17 +212,17 @@ export default {
         async submit() {
             let data = {
                 customerDetails: {
-                    c_country: this.form.c_country,
-                    c_fname: this.form.c_fname,
-                    c_lname: this.form.c_lname,
-                    c_companyname: this.form.c_companyname,
-                    c_address: this.form.c_address,
-                    c_state_country: this.form.c_state_country,
-                    c_postal_zip: this.form.c_postal_zip,
-                    c_email_address: this.form.c_email_address,
-                    c_phone: this.form.c_phone
+                    country: this.form.country,
+                    first_name: this.form.first_name,
+                    last_name: this.form.last_name,
+                    company_name: this.form.company_name,
+                    address: this.form.address,
+                    state: this.form.state,
+                    postal_code: this.form.postal_code,
+                    email: this.form.email,
+                    phone: this.form.phone
                 },
-                productDetails:{
+                productDetails: {
                     products: this.cartProducts
                 },
                 orderTotal: this.cartTotal
@@ -239,8 +248,81 @@ export default {
             }
 
         }
+    },
+    mounted() {
+        //validations
+        $('#first_name, #last_name, #address, #state, #postal_code, #email, #phone').on('input', function (element) {
+            console.log(element.target.attributes.name)
+            let input = element.target.value
+            let errorMessage = ''
+            if (input === '') {
+                errorMessage = (element.target.id.replace('_', ' ') + ' must not be empty').replace(/^./, str => str.toUpperCase())
+            }
+            else {
+                if (element.target.id === 'first_name' || element.target.id === 'last_name' || element.target.id === 'state') {
+                    let regex = /^[A-Za-z\s]+$/
+                    if (!regex.test(input)) {
+                        errorMessage = (element.target.id.replace('_', ' ') + ' can only have letters').replace(/^./, str => str.toUpperCase())
+                    }
+                }
+                if (element.target.id === 'address') {
+                    let regex = /^[A-Za-z0-9\s]+$/
+                    if (!regex.test(input)) {
+                        errorMessage = (element.target.id.replace('_', ' ') + ' can only have letters and numbers').replace(/^./, str => str.toUpperCase())
+                    }
+                }
+                if (element.target.id === 'postal_code') {
+                    let regex = /^[0-9]+$/
+                    if (!regex.test(input)) {
+                        errorMessage = (element.target.id.replace('_', ' ') + ' can only have numbers').replace(/^./, str => str.toUpperCase())
+                    }
+                }
+                if (element.target.id === 'email') {
+                    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    if (!regex.test(input)) {
+                        errorMessage = "Email is not valid"
+                    }
+                }
+                if (element.target.id === 'phone') {
+                    let numberRegex = /^[0-9]+$/
+                    let lengthRegex = /^[0-9]{1,10}$/
+                    if (!numberRegex.test(input)) {
+                        errorMessage = 'phone can only have numbers'.replace(/^./, str => str.toUpperCase())
+                    } else {
+                        if (!lengthRegex.test(input)) {
+                            errorMessage = 'phone number should be 10 digits'.replace(/^./, str => str.toUpperCase())
+                        }
+                    }
+                }
+
+            }
+            var errorElement = element.target.nextElementSibling;
+            if (errorMessage) {
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+                // document.getElementById('submit').disabled = true;
+            } else {
+                errorElement.style.display = 'none';
+                // document.getElementById('submit').disabled = false;
+            }
+            validateAllInputs()
+        })
     }
 }
 
-
+function validateAllInputs() {
+    let isValid = true
+    $('.error').each(function () {
+        console.log(this.style.display)
+        if(this.style.display == 'block'){
+            isValid = false
+            return false
+        }
+    });
+    if(isValid){
+        document.getElementById('submit').disabled = false
+    }else{
+        document.getElementById('submit').disabled = true
+    }
+}
 </script>
