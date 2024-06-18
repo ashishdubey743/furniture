@@ -1,4 +1,4 @@
-let base_url = 'http://127.0.0.1:8000'
+let base_url = 'http://127.0.0.1:3000'
 
 async function Api(url, data, method){
     try {

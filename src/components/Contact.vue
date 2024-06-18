@@ -139,7 +139,52 @@
 <script>
 $(document).ready(function () {
 
-    if (location.pathname === '/contact') {
+
+});
+
+export default {
+    name: "Contact",
+    data() {
+        return {
+            form: {
+                first_name: '',
+                last_name: '',
+                email: '',
+                message: '',
+            }
+        }
+    },
+    methods: {
+        async submit() {
+            let data = {
+                first_name: this.form.first_name,
+                last_name: this.form.last_name,
+                email: this.form.email,
+                message: this.form.message,
+            }
+            Api(base_url + '/contacts', data, 'POST').then(responseData => {
+                if (responseData) {
+                    var modal = new bootstrap.Modal(document.getElementById('modal'));
+                    document.querySelector('.modal-body').textContent = "Query Saved. Thanks for reaching out!"
+                    modal.show();
+
+                }
+            })
+        },
+        clearForm(){
+            this.form.first_name = ''
+            this.form.last_name = ''
+            this.form.email = ''
+            this.form.message = ''
+        }
+    },
+    mounted() {
+        let modal = document.getElementById('modal')
+        modal.addEventListener('hidden.bs.modal', ()=>{
+            this.clearForm()
+        })
+
+        if (location.pathname === '/contact') {
         var scrollSpeed = 500;
 
         $('html, body').animate({
@@ -173,50 +218,6 @@ $(document).ready(function () {
             document.getElementById('submit').disabled = false;
         }
     });
-});
-
-export default {
-    name: "Contact",
-    data() {
-        return {
-            form: {
-                first_name: '',
-                last_name: '',
-                email: '',
-                message: '',
-            }
-        }
-    },
-    methods: {
-        async submit() {
-            let data = {
-                first_name: this.form.first_name,
-                last_name: this.form.last_name,
-                email: this.form.email,
-                message: this.form.message,
-            }
-            Api(base_url + '/api/contacts', data, 'POST').then(responseData => {
-                console.log('API response:', responseData);
-                if (responseData.code === 200) {
-                    var modal = new bootstrap.Modal(document.getElementById('modal'));
-                    document.querySelector('.modal-body').textContent = responseData.message
-                    modal.show();
-
-                }
-            })
-        },
-        clearForm(){
-            this.form.first_name = ''
-            this.form.last_name = ''
-            this.form.email = ''
-            this.form.message = ''
-        }
-    },
-    mounted() {
-        let modal = document.getElementById('modal')
-        modal.addEventListener('hidden.bs.modal', ()=>{
-            this.clearForm()
-        })
     }
 }
 </script>
