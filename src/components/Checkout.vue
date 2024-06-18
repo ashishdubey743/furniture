@@ -121,8 +121,6 @@
                                         </tbody>
                                     </table>
                                     <div class="border p-3 mb-3">
-                                        <!-- <button id="rzp-button1" class="btn btn-outline-dark btn-lg"><i
-                                                class="fas fa-money-bill"></i> Own Checkout</button> -->
                                         <input class="form-check-input mt-2" type="radio" value="razorpay"
                                             id="paymentMethod" v-model="form.paymentMethod"
                                             aria-label="Radio button for following text input" required
@@ -134,8 +132,6 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <!-- <button class="btn btn-black btn-lg py-3 btn-block"
-                                            onclick="window.location='thankyou.html'">Place Order</button> -->
                                         <button class="btn btn-black btn-lg py-3 btn-block" id="submit"
                                             type="submit">Place
                                             Order</button>
@@ -155,7 +151,6 @@
 </template>
 
 <script>
-import { errorMessages } from 'vue/compiler-sfc';
 import { mapGetters } from 'vuex';
 export default {
     name: "Checkout",
@@ -223,8 +218,6 @@ export default {
                         if (responseData) {
                             this.payWithRazorpay(responseData.id, data);
                         }
-                        // this.$store.commit('clearCart')
-                        // this.$router.push({ path: '/thankyou' })
                     }
                 } else {
                     console.error('API response not OK', response.statusText)
@@ -237,7 +230,7 @@ export default {
         payWithRazorpay(orderId, body) {
             console.log("ASHISH")
             var options = {
-                "key": "rzp_test_YrKYguMVe5OsOI", // Enter the Key ID generated from the Dashboard
+                "key": "rzp_test_YrKYguMVe5OsOI",
                 "amount": "2000",
                 "currency": "INR",
                 "description": "Acme Corp",
@@ -375,21 +368,11 @@ export default {
             if (errorMessage) {
                 errorElement.textContent = errorMessage;
                 errorElement.style.display = 'block';
-                // document.getElementById('submit').disabled = true;
             } else {
                 errorElement.style.display = 'none';
-                // document.getElementById('submit').disabled = false;
             }
             validateAllInputs()
         })
-
-        //razor-pay
-
-
-        // document.getElementById('rzp-button1').onclick = function (e) {
-        //     rzp1.open();
-        //     e.preventDefault();
-        // }
     }
 }
 

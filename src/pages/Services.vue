@@ -13,7 +13,31 @@ import Footer from '../components/Footer.vue'
         <Navigation />
         <Hero />
         <WhyChoose />
-        <Product />
+        <Product :products="products" />
         <Footer />
     </body>
 </template>
+<script>
+export default {
+    name: "Services",
+    data() {
+        return {
+            products: [
+
+            ]
+        }
+    },
+    async created() {
+        try {
+            let response = await fetch('http://localhost:3000/products')
+            if (!response.ok) {
+                throw new Error("Failed to fetch products !")
+            }
+            const productList = await response.json()
+            this.products = productList
+        } catch (error) {
+            console.error('Error fetching products:', error.message)
+        }
+    }
+}
+</script>

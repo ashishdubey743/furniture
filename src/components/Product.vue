@@ -1,3 +1,13 @@
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+    products:{
+        type: Object,
+        required: true
+    }
+})
+</script>
 <template>
     <!-- Start Product Section -->
     <div class="product-section">
@@ -37,25 +47,6 @@
 <script>
 export default {
     name: "Product",
-    data() {
-        return {
-            products: [
-
-            ]
-        }
-    },
-    async created() {
-        try {
-            let response = await fetch('http://localhost:3000/products')
-            if (!response.ok) {
-                throw new Error("Failed to fetch products !")
-            }
-            const productList = await response.json()
-            this.products = productList
-        } catch (error) {
-            console.error('Error fetching products:', error.message)
-        }
-    },
     methods: {
         add_to_Cart(product) {
             this.$store.commit('addToCart', product)
