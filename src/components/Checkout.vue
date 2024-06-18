@@ -26,13 +26,13 @@
                                     <label for="first_name" class="text-black">First Name <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="first_name" name="first_name"
-                                        v-model="form.first_name" required>
+                                        v-model="form.first_name" placeholder="First name"required>
                                     <span class="error" style="color: red; display: none;"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="last_name" class="text-black">Last Name <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="last_name" name="last_name"
+                                    <input type="text" class="form-control" id="last_name" placeholder="Last name" name="last_name"
                                         v-model="form.last_name" required>
                                     <span class="error" style="color: red; display: none;"></span>
                                 </div>
@@ -41,7 +41,7 @@
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="company_name" class="text-black">Company Name </label>
-                                    <input type="text" class="form-control" id="company_name" name="company_name"
+                                    <input type="text" class="form-control" placeholder="Company name" id="company_name" name="company_name"
                                         v-model="form.company_name">
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 <div class="col-md-6">
                                     <label for="state" class="text-black">State / Country <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="state" name="state" v-model="form.state"
+                                    <input type="text" class="form-control" id="state" placeholder="State" name="state" v-model="form.state"
                                         required>
                                     <span class="error" style="color: red; display: none;"></span>
                                 </div>
@@ -69,7 +69,7 @@
                                     <label for="postal_code" class="text-black">Posta / Zip <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="postal_code" name="postal_code"
-                                        v-model="form.postal_code" required>
+                                        v-model="form.postal_code" placeholder="Postal code" required>
                                     <span class="error" style="color: red; display: none;"></span>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <div class="col-md-6">
                                     <label for="email" class="text-black">Email Address <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="email" name="email" v-model="form.email"
+                                    <input type="text" class="form-control" id="email" placeholder="Email" name="email" v-model="form.email"
                                         required>
                                     <span class="error" style="color: red; display: none;"></span>
                                 </div>
@@ -228,11 +228,10 @@ export default {
 
         },
         payWithRazorpay(orderId, body) {
-            console.log("ASHISH")
             var options = {
                 "key": "rzp_test_YrKYguMVe5OsOI",
-                "amount": "2000",
-                "currency": "INR",
+                "amount": this.cartTotal*100,
+                "currency": "USD",
                 "description": "Acme Corp",
                 "image": "example.com/image/rzp.jpg",
                 "prefill":

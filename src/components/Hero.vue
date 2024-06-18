@@ -13,7 +13,7 @@ export default {
                     <div class="intro-excerpt">
                         <h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
                         <p class="mb-4">Modern Interior Design Studio transforms spaces with innovative, stylish interiors tailored to your unique vision. Our expert team ensures every project blends functionality with exceptional aesthetics.</p>
-                        <p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a></p>
+                        <p><router-link to="/shop" class="btn btn-secondary me-2">Shop Now</router-link></p>
                     </div>
                 </div>
                 <div class="col-lg-7">

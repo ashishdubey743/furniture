@@ -19,7 +19,7 @@ const props = defineProps({
                     <p class="mb-4">Modern Interior Design Studio transforms spaces with innovative, stylish interiors
                         tailored to your unique vision. Our expert team ensures every project blends functionality with
                         exceptional aesthetics. </p>
-                    <p><a href="/shop" class="btn">Explore</a></p>
+                    <p><router-link to="/shop" class="btn">Explore</router-link></p>
                 </div>
                 <!-- End Column 1 -->
                 <!-- Start Column 2 -->
