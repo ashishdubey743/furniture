@@ -31,6 +31,16 @@ const store = createStore({
         existingProduct.quantity += 1
       }
     },
+    decreaseQuantity(state, productId) {
+      const existingProduct = state.cart.find(item => item.id === productId)
+      if (existingProduct) {
+        if(existingProduct.quantity != 1){
+          existingProduct.quantity -= 1
+        } else{
+          store.commit('deleteFromCart', productId)
+        }
+      }
+    },
     clearCart(state) {
       state.cart = []
     },

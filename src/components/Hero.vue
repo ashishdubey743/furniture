@@ -12,15 +12,13 @@ export default {
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
                         <h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
-                        <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit.
-                            Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
-                        <p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="#"
-                                class="btn btn-white-outline">Explore</a></p>
+                        <p class="mb-4">Modern Interior Design Studio transforms spaces with innovative, stylish interiors tailored to your unique vision. Our expert team ensures every project blends functionality with exceptional aesthetics.</p>
+                        <p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a></p>
                     </div>
                 </div>
                 <div class="col-lg-7">
                     <div class="hero-img-wrap">
-                        <img src="../assets/images/couch.png" class="img-fluid">
+                        <img src="../../public/images/couch.png" class="img-fluid">
                     </div>
                 </div>
             </div>

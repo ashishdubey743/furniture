@@ -26,16 +26,16 @@
                         <div class="row links-wrap">
                             <div class="col-6 col-sm-6 col-md-3">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">About us</a></li>
-                                    <li><a href="#">Services</a></li>
+                                    <li><router-link to="/about">about us</router-link></li>
+                                    <li><router-link to="/services">Services</router-link></li>
                                     <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Contact us</a></li>
+                                    <li><router-link to="/contact">Contact us</router-link></li>
                                 </ul>
                             </div>
 
                             <div class="col-6 col-sm-6 col-md-3">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">Support</a></li>
+                                    <li><router-link to="/contact">Support</router-link></li>
                                     <li><a href="#">Knowledge base</a></li>
                                     <li><a href="#">Live chat</a></li>
                                 </ul>
@@ -65,11 +65,7 @@
                 <div class="border-top copyright">
                     <div class="row pt-4">
                         <div class="col-lg-6">
-                            <p class="mb-2 text-center text-lg-start">Copyright &copy;
-                                <!-- <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; -->
-                                Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a
-                                    hreff="https://themewagon.com">ThemeWagon</a>
-                                <!-- License information: https://untree.co/license/ -->
+                            <p class="mb-2 text-center text-lg-start">Copyright &copy; Ashish Dubey
                             </p>
                         </div>
 

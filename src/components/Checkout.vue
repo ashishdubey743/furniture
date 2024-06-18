@@ -238,6 +238,7 @@ export default {
                 if (response.ok) {
                     const responseData = await response.json()
                     if (responseData) {
+                        this.$store.commit('clearCart')
                         this.$router.push({ path: '/thankyou' })
                     }
                 } else {
@@ -252,7 +253,6 @@ export default {
     mounted() {
         //validations
         $('#first_name, #last_name, #address, #state, #postal_code, #email, #phone').on('input', function (element) {
-            console.log(element.target.attributes.name)
             let input = element.target.value
             let errorMessage = ''
             if (input === '') {
@@ -313,7 +313,6 @@ export default {
 function validateAllInputs() {
     let isValid = true
     $('.error').each(function () {
-        console.log(this.style.display)
         if(this.style.display == 'block'){
             isValid = false
             return false

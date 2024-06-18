@@ -31,7 +31,7 @@
                                             style="max-width: 120px;">
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-outline-black decrease"
-                                                    type="button">&minus;</button>
+                                                    type="button" @click="decrease_quantity(product.id)">&minus;</button>
                                             </div>
                                             <input type="text" class="form-control text-center quantity-amount"
                                                 v-model="product.quantity" placeholder="" aria-label="Example text with button addon"
@@ -92,14 +92,6 @@
 import { mapGetters } from 'vuex';
 export default {
     name: "Cart",
-    data(){
-        return {
-            // cartProducts : []
-        }
-    },
-    created(){
-        // this.cartProducts = this.$store.state.cart
-    },
     computed:{
         ...mapGetters([
             'cartTotal',
@@ -112,6 +104,9 @@ export default {
         },
         increase_quantity(productId){
             this.$store.commit('increaseQuantity', productId)
+        },
+        decrease_quantity(productId){
+            this.$store.commit('decreaseQuantity', productId)
         }
     }
 }

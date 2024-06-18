@@ -13,7 +13,6 @@ import Footer from '../components/Footer.vue'
         <Hero />
         <Product />
         <WhyChoose />
-        <PopularProduct />
         <Footer />
     </body>
 </template>
