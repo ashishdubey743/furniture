@@ -108,7 +108,7 @@
                                             <tr v-for="product in cartProducts">
                                                 <td>{{ product.name }} <strong class="mx-2">x</strong> {{
                                                     product.quantity
-                                                }}</td>
+                                                    }}</td>
                                                 <td>${{ product.price }}</td>
                                             </tr>
                                             <tr>
@@ -121,50 +121,17 @@
                                         </tbody>
                                     </table>
                                     <div class="border p-3 mb-3">
-                                        <button id="rzp-button1" class="btn btn-outline-dark btn-lg"><i
-                                                class="fas fa-money-bill"></i> Own Checkout</button>
+                                        <!-- <button id="rzp-button1" class="btn btn-outline-dark btn-lg"><i
+                                                class="fas fa-money-bill"></i> Own Checkout</button> -->
+                                        <input class="form-check-input mt-2" type="radio" value="razorpay"
+                                            id="paymentMethod" v-model="form.paymentMethod"
+                                            aria-label="Radio button for following text input" required
+                                            @click="check_error(this)"><strong style="margin-left: 10px;">Pay with
+                                            Razorpay</strong>
+
+                                        <span v-if="paymentError" class="error" style="color: red; display: block;">{{
+                                            paymentError }}</span>
                                     </div>
-                                    <!-- <div class="border p-3 mb-3">
-                                        <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse"
-                                                href="#collapsebank" role="button" aria-expanded="false"
-                                                aria-controls="collapsebank">Direct Bank Transfer</a></h3>
-
-                                        <div class="collapse" id="collapsebank">
-                                            <div class="py-2">
-                                                <p class="mb-0">Make your payment directly into our bank account. Please
-                                                    use your Order ID as the payment reference. Your order won’t be
-                                                    shipped until the funds have cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="border p-3 mb-3">
-                                        <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse"
-                                                href="#collapsecheque" role="button" aria-expanded="false"
-                                                aria-controls="collapsecheque">Cheque Payment</a></h3>
-
-                                        <div class="collapse" id="collapsecheque">
-                                            <div class="py-2">
-                                                <p class="mb-0">Make your payment directly into our bank account. Please
-                                                    use your Order ID as the payment reference. Your order won’t be
-                                                    shipped until the funds have cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="border p-3 mb-5">
-                                        <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse"
-                                                href="#collapsepaypal" role="button" aria-expanded="false"
-                                                aria-controls="collapsepaypal">Paypal</a></h3>
-
-                                        <div class="collapse" id="collapsepaypal">
-                                            <div class="py-2">
-                                                <p class="mb-0">Make your payment directly into our bank account. Please
-                                                    use your Order ID as the payment reference. Your order won’t be
-                                                    shipped until the funds have cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div> -->
 
                                     <div class="form-group">
                                         <!-- <button class="btn btn-black btn-lg py-3 btn-block"
@@ -188,6 +155,7 @@
 </template>
 
 <script>
+import { errorMessages } from 'vue/compiler-sfc';
 import { mapGetters } from 'vuex';
 export default {
     name: "Checkout",
@@ -202,8 +170,11 @@ export default {
                 state: "",
                 postal_code: "",
                 email: "",
-                phone: ""
-            }
+                phone: "",
+                paymentMethod: "",
+            },
+            errorMessage: '',
+            paymentError: ''
         }
     },
     computed: {
@@ -228,9 +199,17 @@ export default {
                 productDetails: {
                     products: this.cartProducts
                 },
+                orderDetails: {
+                    paymentMethod: this.form.paymentMethod,
+                    status: 'pending'
+                },
                 orderTotal: this.cartTotal
             }
             try {
+                if (this.form.paymentMethod !== 'razorpay') {
+                    this.paymentError = 'Please select a payment method.';
+                    return;
+                }
                 const response = await fetch('http://localhost:3000/orders', {
                     method: 'POST',
                     headers: {
@@ -241,8 +220,11 @@ export default {
                 if (response.ok) {
                     const responseData = await response.json()
                     if (responseData) {
-                        this.$store.commit('clearCart')
-                        this.$router.push({ path: '/thankyou' })
+                        if (responseData) {
+                            this.payWithRazorpay(responseData.id, data);
+                        }
+                        // this.$store.commit('clearCart')
+                        // this.$router.push({ path: '/thankyou' })
                     }
                 } else {
                     console.error('API response not OK', response.statusText)
@@ -251,13 +233,103 @@ export default {
                 console.error("Error:", error)
             }
 
+        },
+        payWithRazorpay(orderId, body) {
+            console.log("ASHISH")
+            var options = {
+                "key": "rzp_test_YrKYguMVe5OsOI", // Enter the Key ID generated from the Dashboard
+                "amount": "2000",
+                "currency": "INR",
+                "description": "Acme Corp",
+                "image": "example.com/image/rzp.jpg",
+                "prefill":
+                {
+                    "email": "gaurav.kumar@example.com",
+                    "contact": +919900000000,
+                },
+                config: {
+                    display: {
+                        blocks: {
+                            utib: { //name for Axis block
+                                name: "Pay using Axis Bank",
+                                instruments: [
+                                    {
+                                        method: "card",
+                                        issuers: ["UTIB"]
+                                    },
+                                    {
+                                        method: "netbanking",
+                                        banks: ["UTIB"]
+                                    },
+                                ]
+                            },
+                            other: { //  name for other block
+                                name: "Other Payment modes",
+                                instruments: [
+                                    {
+                                        method: "card",
+                                        issuers: ["ICIC"]
+                                    },
+                                    {
+                                        method: 'netbanking',
+                                    }
+                                ]
+                            }
+                        },
+                        hide: [
+                            {
+                                method: "upi"
+                            }
+                        ],
+                        sequence: ["block.utib", "block.other"],
+                        preferences: {
+                            show_default_blocks: false // Should Checkout show its default blocks?
+                        }
+                    }
+                },
+                "handler": async  (response) => {
+                    // alert(response.razorpay_payment_id);
+                    try {
+                        body.orderDetails.status= 'Completed'
+                        const updateResponse = await fetch(`http://localhost:3000/orders/`+orderId, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(body)
+                        });
+
+                        if (updateResponse.ok) {
+                            const updatedOrder = await updateResponse.json();
+                            this.$store.commit('clearCart');
+                            this.$router.push({ path: '/thankyou' });
+                        } else {
+                            console.error('Error updating order:', updateResponse.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Error in payment handler:', error);
+                    }
+
+                },
+                "modal": {
+                    "ondismiss": function () {
+
+                    }
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+
+        },
+        check_error() {
+            this.paymentError = ''
         }
     },
     mounted() {
         //validations
         $('#first_name, #last_name, #address, #state, #postal_code, #email, #phone').on('input', function (element) {
             let input = element.target.value
-            let errorMessage = ''
+            let errorMessage = this.errorMessage
             if (input === '') {
                 errorMessage = (element.target.id.replace('_', ' ') + ' must not be empty').replace(/^./, str => str.toUpperCase())
             }
@@ -313,77 +385,11 @@ export default {
 
         //razor-pay
 
-        var options = {
-            "key": "rzp_test_YrKYguMVe5OsOI", // Enter the Key ID generated from the Dashboard
-            "amount": "1000",
-            "currency": "INR",
-            "description": "Acme Corp",
-            "image": "example.com/image/rzp.jpg",
-            "prefill":
-            {
-                "email": "gaurav.kumar@example.com",
-                "contact": +919900000000,
-            },
-            config: {
-                display: {
-                    blocks: {
-                        utib: { //name for Axis block
-                            name: "Pay using Axis Bank",
-                            instruments: [
-                                {
-                                    method: "card",
-                                    issuers: ["UTIB"]
-                                },
-                                {
-                                    method: "netbanking",
-                                    banks: ["UTIB"]
-                                },
-                            ]
-                        },
-                        other: { //  name for other block
-                            name: "Other Payment modes",
-                            instruments: [
-                                {
-                                    method: "card",
-                                    issuers: ["ICIC"]
-                                },
-                                {
-                                    method: 'netbanking',
-                                }
-                            ]
-                        }
-                    },
-                    hide: [
-                        {
-                            method: "upi"
-                        }
-                    ],
-                    sequence: ["block.utib", "block.other"],
-                    preferences: {
-                        show_default_blocks: false // Should Checkout show its default blocks?
-                    }
-                }
-            },
-            "handler": function (response) {
-                alert(response.razorpay_payment_id);
-            },
-            "modal": {
-                "ondismiss": function () {
-                    if (confirm("Are you sure, you want to close the form?")) {
-                        txt = "You pressed OK!";
-                        console.log("Checkout form closed by the user");
-                    } else {
-                        txt = "You pressed Cancel!";
-                        console.log("Complete the Payment")
-                    }
-                }
-            }
-        };
-        var rzp1 = new Razorpay(options);
-        document.getElementById('rzp-button1').onclick = function (e) {
-            rzp1.open();
-            e.preventDefault();
-        }
+
+        // document.getElementById('rzp-button1').onclick = function (e) {
+        //     rzp1.open();
+        //     e.preventDefault();
+        // }
     }
 }
 
